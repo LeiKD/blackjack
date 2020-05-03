@@ -1,0 +1,31 @@
+.jumbotron{
+    text-align: center;
+    background-image: url('https://bit.ly/2VYSsC0');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+h1{
+    font-family: 'Kalam', cursive;
+}
+.flex-box-container-1,.flex-box-container-2,.flex-box-container-3,.flex-box-container-4{
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.flex-11{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    flex-direction: row;
+}
+table, th, td{
+    padding: 10px;
+    border: 1px solid white;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Jost|Kalam&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>A Game of Blackjack</h1>
+        <h2><span id="bj-result-text" >Let's Play</span></h2>
+        <div class="flex-box-container-1" style="background-image: url('https://bit.ly/2yq0HOe'); height: 400px;">
+            <div id="your-box" style="border: 1px solid black; flex: 1;">
+                <h2> <span id="your-result">You: 0</span></h2>
+                <div class="flex-11" id="my-box">
+
+                </div>
+            </div>
+            <div id="dealer-box" style="border: 1px solid black; flex: 1;">
+                <h2><span id="dealer-result">Dealer: 0</span></h2>
+                <div class="felx-12" id="its-box">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="flex-box-container-2">
+            <div>
+                <button class="btn btn-success" style="margin: 10px;" id="hit" >Hit</button>
+                <button class="btn btn-warning" style="margin: 10px;" id="pass" >Pass</button>
+                <button class="btn btn-danger" style="margin: 10px;" id="deal" >Deal</button>
+            </div>
+        </div>
+        <div class="flex-box-container-3">
+            <table>
+                <tr>
+                    <th>Wins</td>
+                    <th>Draws</td>
+                    <th>Losses</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.5.0.js"
+  integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="./js/styles.js"></script>
+</html>
