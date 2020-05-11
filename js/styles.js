@@ -2,7 +2,9 @@ let cardsDatabase={'A':[1,11],'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'1
 let cardNumbers=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 let blackjackGame= {
     'dealer':{'box':'its-box','id':'#dealer-result', 'score':0, 'title':'Dealer'},
-    'you':{'box':'my-box','id':'#your-result', 'score':0, 'title': 'You'}
+    'you':{'box':'my-box','id':'#your-result', 'score':0, 'title': 'You'},
+    'passMode': false,
+    'turnsOver': false
 }
 const you= blackjackGame['you'];
 const dealer= blackjackGame['dealer'];
@@ -41,26 +43,36 @@ function showCard(card,activePlayer){
     }
 }
 function hit(){
-    let card= randomCard();
-    showCard(card,you);
-    updateScore(card,you);
-    showScore(you);
-    console.log(you['score']);
+    if (blackjackGame['passMode'] === false) {
+        let card= randomCard();
+        showCard(card,you);
+        updateScore(card,you);
+        showScore(you);
+    } else {
+
+    }
 }
-function pass(){
+function pass(){ 
+    blackjackGame['passMode'] = true ;
     let card= randomCard();
     showCard(card,dealer);
     updateScore(card,dealer);
     showScore(dealer);
-    console.log(dealer['score']);
+
+    if (dealer['score'] > 15) {
+        blackjackGame['turnsOver'] = true ;
+        showResult(computeWinner());
+    }
 }
 function deal(){
-    showResult(computeWinner());
-    erase(you);
-    erase(dealer);
-    resetScore(you);
-    resetScore(dealer);
-    scoreBoard();
+    if (blackjackGame['turnsOver'] === true) {
+        blackjackGame['passMode'] = false ;
+        erase(you);
+        erase(dealer);
+        resetScore(you);
+        resetScore(dealer);
+        scoreBoard();
+    }
 }
 function resetScore(activePlayer){
     activePlayer['score'] *= 0;
@@ -119,26 +131,28 @@ function computeWinner(){
     return winner;
 }
 function showResult(winner){
-    let message,messageColor;
-    if (winner===you){
-        message= 'You Won!';
-        messageColor= 'blue';
-        winSound.play();
-        wins['score'] ++ ;
-    } else if (winner===dealer){
-        message= 'You Lost!';
-        messageColor= 'red';
-        lossSound.play();
-        losses['score'] ++ ;
-    }else {
-        message= 'You Drew!';
-        messageColor= 'yellow';
-        drawSound.play();
-        draws['score'] ++ ;
+    if (blackjackGame['turnsOver'] === true) {
+        let message,messageColor;
+        if (winner===you){
+            message= 'You Won!';
+            messageColor= 'blue';
+            winSound.play();
+            wins['score'] ++ ;
+        } else if (winner===dealer){
+            message= 'You Lost!';
+            messageColor= 'red';
+            lossSound.play();
+            losses['score'] ++ ;
+        }else {
+            message= 'You Drew!';
+            messageColor= 'yellow';
+            drawSound.play();
+            draws['score'] ++ ;
+        }
+        document.querySelector('#bj-result-text').textContent= message;
+        document.querySelector('#bj-result-text').style.color= messageColor;
+        console.log('Winner is' + winner);
     }
-    document.querySelector('#bj-result-text').textContent= message;
-    document.querySelector('#bj-result-text').style.color= messageColor;
-    console.log('Winner is' + winner)
 }
 
 function scoreBoard(){
