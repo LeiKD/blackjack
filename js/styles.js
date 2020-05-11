@@ -32,7 +32,7 @@ function randomCard(){
 }
 
 function showCard(card,activePlayer){
-    if (activePlayer['score'] + cardsDatabase[card] <= 21) {
+    if (activePlayer['score'] <= 21) {
     let chosenCard= document.createElement('img');
     chosenCard.src= `./images/${card}.png`;
     chosenCard.setAttribute('style','height:150px; width:130px; padding:20px;');
@@ -52,17 +52,22 @@ function hit(){
 
     }
 }
-function pass(){ 
-    blackjackGame['passMode'] = true ;
-    let card= randomCard();
-    showCard(card,dealer);
-    updateScore(card,dealer);
-    showScore(dealer);
 
-    if (dealer['score'] > 15) {
-        blackjackGame['turnsOver'] = true ;
-        showResult(computeWinner());
+function sleep(ms){
+    return new Promise(resolve => setTimeout (resolve,ms));
+}
+
+async function pass(){ 
+    blackjackGame['passMode'] = true ;
+    while (dealer['score'] < 21 && blackjackGame['passMode'] === true) {
+        let card= randomCard();
+        showCard(card,dealer);
+        updateScore(card,dealer);
+        showScore(dealer);
+        await sleep(1000);
     }
+    blackjackGame['turnsOver'] = true ;
+    showResult(computeWinner());
 }
 function deal(){
     if (blackjackGame['turnsOver'] === true) {
@@ -72,12 +77,16 @@ function deal(){
         resetScore(you);
         resetScore(dealer);
         scoreBoard();
+       
     }
 }
 function resetScore(activePlayer){
     activePlayer['score'] *= 0;
     document.querySelector(activePlayer['id']).textContent= activePlayer['score'] * 0;
     document.querySelector(activePlayer['id']).style.color= 'white';
+    document.querySelector('#bj-result-text').textContent= 'Lets Play';
+    document.querySelector('#bj-result-text').style.color= 'black';
+
 }
 function erase(activePlayer){
     let cardsDisplay= document.querySelector('#' + activePlayer['box']).querySelectorAll('img');
