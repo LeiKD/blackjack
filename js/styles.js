@@ -160,3 +160,9 @@ function scoreBoard(){
     document.querySelector('#draws').textContent = draws['score'];
     document.querySelector('#losses').textContent = losses['score'];
 }
+
+document.querySelector('#reload').addEventListener('click', reload);
+
+function reload() {
+    window.location.reload();
+}
