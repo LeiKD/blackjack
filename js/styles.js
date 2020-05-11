@@ -68,6 +68,7 @@ async function pass(){
     }
     blackjackGame['turnsOver'] = true ;
     showResult(computeWinner());
+    scoreBoard();
 }
 function deal(){
     if (blackjackGame['turnsOver'] === true) {
@@ -75,9 +76,7 @@ function deal(){
         erase(you);
         erase(dealer);
         resetScore(you);
-        resetScore(dealer);
-        scoreBoard();
-       
+        resetScore(dealer);       
     }
 }
 function resetScore(activePlayer){
